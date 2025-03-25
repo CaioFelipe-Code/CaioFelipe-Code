@@ -22,7 +22,7 @@
 ---
 
 <div align=center>
-  <p>My social networks</p>
+  <p><h3>📱My social networks:</h3></p>
 <a href="https://www.instagram.com/caio_felipe_moura_/" target="_blank"><img alt="INSTAGRAM-logo" src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" target="_blank"></a>   
 <a href="https://www.linkedin.com/in/caio-felipe-a16605207/" target="_blank"><img alt="LINKEDIN-logo" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>   
 <a href="https://https://github.com/CaioFelipe-Code" target="_blank"><img alt="GITHUB-logo" src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>   
@@ -38,9 +38,3 @@
   
 </div>
   
-## 
-  
-<div align="center">
-<br><p align="centre"><b>Visitors Count</b></p>  
-<p align="center"><img align="center" src="https://profile-counter.glitch.me/{CaioFelipe-Code}/count.svg" /></p> 
-<br></div>
