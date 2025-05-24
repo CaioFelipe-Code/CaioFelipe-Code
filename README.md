@@ -5,7 +5,7 @@
 ---
 <div align=center>
   <a href="https://github.com/CaioFelipe-Code">
-  <img height="180cm" src="https://github.com/CaioFelipe-Code/CaioFelipe-Code/blob/main/profile-assets/github-stats.svg" alt="GitHub Stats"/>
+  <img height="180cm" src="https://raw.githubusercontent.com/CaioFelipe-Code/CaioFelipe-Code/main/profile-assets/github-stats.svg" alt="GitHub Stats"/>
 </div>
 
 ---
