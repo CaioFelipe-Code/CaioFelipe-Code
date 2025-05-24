@@ -1,4 +1,5 @@
 name: Atualizar GitHub Stats e Linguagens
+
 on:
   # Roda a cada 6 horas (você pode ajustar esta frequência)
   schedule:
@@ -23,7 +24,7 @@ jobs:
 
       # Gera o card de estatísticas principal (GitHub Stats)
       - name: Gerar Card de Estatísticas
-        uses: anuraghazra/github-readme-stats@master # Usa a Action do github-readme-stats
+        uses: anuraghazra/github-readme-stats@v3 # <--- CORRIGIDO AQUI: de @master para @v3
         with:
           username: CaioFelipe-Code # Seu nome de usuário do GitHub
           show_icons: true
@@ -36,7 +37,7 @@ jobs:
 
       # Gera o card de linguagens mais usadas
       - name: Gerar Card de Linguagens Mais Usadas
-        uses: anuraghazra/github-readme-stats@master
+        uses: anuraghazra/github-readme-stats@v3 # <--- CORRIGIDO AQUI: de @master para @v3
         with:
           username: CaioFelipe-Code # Seu nome de usuário do GitHub
           layout: compact
