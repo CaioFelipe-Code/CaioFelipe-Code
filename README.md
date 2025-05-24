@@ -3,10 +3,9 @@
 - 🎯 Procurando por Trabalho | Looking for Work
 - ✉️ E-mail pessoal: caio.felipe.projetos@gmail.com | Personal e-mail: caio.felipe.projetos@gmail.com
 ---
- <div align=center>
+<div align=center>
   <a href="https://github.com/CaioFelipe-Code">
   <img height="180cm" src="https://github.com/CaioFelipe-Code/CaioFelipe-Code/blob/main/profile-assets/github-stats.svg" alt="GitHub Stats"/>
-  <img height="180cm" src="https://github.com/CaioFelipe-Code/CaioFelipe-Code/blob/main/profile-assets/top-langs.svg" alt="Most Used Languages"/>
 </div>
 
 ---
