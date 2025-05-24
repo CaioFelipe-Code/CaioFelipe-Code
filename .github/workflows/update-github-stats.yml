@@ -1,4 +1,4 @@
-name: Atualizar GitHub Stats e Linguagens
+name: Atualizar GitHub Stats e Linguagens (via Metrics)
 
 on:
   # Roda a cada 6 horas (você pode ajustar esta frequência)
@@ -12,40 +12,42 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate_stats:
-    runs-on: ubuntu-latest # O sistema operacional onde o workflow será executado
+  generate_metrics: # O nome do job mudou para refletir a nova Action
+    runs-on: ubuntu-latest
     permissions:
       contents: write # Permissão necessária para o workflow comitar arquivos no seu repositório
 
     steps:
-      # Faz o checkout do seu repositório para que o Action possa acessar os arquivos
+      # Faz o checkout do seu repositório
       - name: Checkout do Repositório
         uses: actions/checkout@v4
 
-      # Gera o card de estatísticas principal (GitHub Stats)
-      - name: Gerar Card de Estatísticas
-        uses: anuraghazra/github-readme-stats@v3 # <--- CORRIGIDO AQUI: de @master para @v3
+      # Gera o card de estatísticas completo com lowlighter/metrics
+      - name: Gerar Card de Estatísticas Completo
+        uses: lowlighter/metrics@latest # <--- NOVA ACTION AQUI!
         with:
-          username: CaioFelipe-Code # Seu nome de usuário do GitHub
-          show_icons: true
-          theme: dracula # Tema escolhido, como no seu README atual
-          include_all_commits: true
-          count_private: true # <--- AQUI o token PAT é crucial para contar privados
-          # O token de acesso pessoal que você criou e salvou como segredo
-          token: ${{ secrets.PAT_GITHUB_TOKEN }} # <--- Referencia o segredo
-          output_path: profile-assets/github-stats.svg # Caminho onde a imagem será salva no seu repositório
-
-      # Gera o card de linguagens mais usadas
-      - name: Gerar Card de Linguagens Mais Usadas
-        uses: anuraghazra/github-readme-stats@v3 # <--- CORRIGIDO AQUI: de @master para @v3
-        with:
-          username: CaioFelipe-Code # Seu nome de usuário do GitHub
-          layout: compact
-          langs_count: 16
-          theme: dracula
-          # O token de acesso pessoal
-          token: ${{ secrets.PAT_GITHUB_TOKEN }} # <--- Referencia o segredo
-          output_path: profile-assets/top-langs.svg # Caminho onde a imagem será salva
+          token: ${{ secrets.PAT_GITHUB_TOKEN }} # <--- Seu token de acesso pessoal
+          filename: profile-assets/github-stats.svg # <--- Caminho onde a imagem será salva
+          
+          # Configurações para o card de estatísticas
+          user: CaioFelipe-Code # Seu nome de usuário do GitHub
+          template: classic # Estilo clássico do card
+          base: header, activity, community, repositories # Dados básicos a incluir
+          
+          # Plugins para incluir mais detalhes
+          plugin_isocalendar: yes # Calendário de contribuições
+          plugin_isocalendar_duration: full-year
+          plugin_achievements: yes # Conquistas
+          plugin_achievements_secrets: yes # Permite rastrear conquistas secretas (requer PAT)
+          plugin_languages: yes # Linguagens mais usadas
+          plugin_languages_colors: github # Cores das linguagens
+          plugin_languages_ignored: html, css, jupyter notebook, markdown # Linguagens para ignorar
+          plugin_languages_limit: 8 # Limite de linguagens a exibir
+          plugin_languages_threshold: 0% # Mostrar todas acima de 0% de uso
+          plugin_commits: yes # Detalhes de commits
+          plugin_topics: yes # Tópicos dos repositórios
+          plugin_topics_limit: 5 # Limite de tópicos a exibir
+          # Para mais opções e plugins, veja a documentação de lowlighter/metrics
 
       # Configura as informações do committer para o Git
       - name: Configurar Informações do Committer
@@ -53,10 +55,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Comita as imagens geradas de volta para o repositório
-      - name: Comitar e Enviar Imagens Geradas
+      # Comita a imagem gerada de volta para o repositório
+      - name: Comitar e Enviar Imagem Gerada
         run: |
-          git add profile-assets/github-stats.svg
-          git add profile-assets/top-langs.svg
-          git commit -m "📊 Atualizar GitHub Stats e Top Languages [skip ci]" || echo "Não há alterações para comitar"
+          git add profile-assets/github-stats.svg # Apenas um arquivo SVG agora
+          git commit -m "📊 Atualizar GitHub Stats com Metrics [skip ci]" || echo "Não há alterações para comitar"
           git push
