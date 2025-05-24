@@ -1,1 +1,61 @@
+name: Atualizar GitHub Stats e Linguagens
+on:
+  # Roda a cada 6 horas (você pode ajustar esta frequência)
+  schedule:
+    - cron: '0 */6 * * *' # min hora dia_do_mes mes dia_da_semana (a cada 6 horas)
+  # Roda também quando há um push para a branch principal
+  push:
+    branches:
+      - main # <--- ALtere para 'master' se sua branch principal for 'master'
+  # Permite executar o workflow manualmente da aba 'Actions'
+  workflow_dispatch:
 
+jobs:
+  generate_stats:
+    runs-on: ubuntu-latest # O sistema operacional onde o workflow será executado
+    permissions:
+      contents: write # Permissão necessária para o workflow comitar arquivos no seu repositório
+
+    steps:
+      # Faz o checkout do seu repositório para que o Action possa acessar os arquivos
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      # Gera o card de estatísticas principal (GitHub Stats)
+      - name: Gerar Card de Estatísticas
+        uses: anuraghazra/github-readme-stats@master # Usa a Action do github-readme-stats
+        with:
+          username: CaioFelipe-Code # Seu nome de usuário do GitHub
+          show_icons: true
+          theme: dracula # Tema escolhido, como no seu README atual
+          include_all_commits: true
+          count_private: true # <--- AQUI o token PAT é crucial para contar privados
+          # O token de acesso pessoal que você criou e salvou como segredo
+          token: ${{ secrets.PAT_GITHUB_TOKEN }} # <--- Referencia o segredo
+          output_path: profile-assets/github-stats.svg # Caminho onde a imagem será salva no seu repositório
+
+      # Gera o card de linguagens mais usadas
+      - name: Gerar Card de Linguagens Mais Usadas
+        uses: anuraghazra/github-readme-stats@master
+        with:
+          username: CaioFelipe-Code # Seu nome de usuário do GitHub
+          layout: compact
+          langs_count: 16
+          theme: dracula
+          # O token de acesso pessoal
+          token: ${{ secrets.PAT_GITHUB_TOKEN }} # <--- Referencia o segredo
+          output_path: profile-assets/top-langs.svg # Caminho onde a imagem será salva
+
+      # Configura as informações do committer para o Git
+      - name: Configurar Informações do Committer
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Comita as imagens geradas de volta para o repositório
+      - name: Comitar e Enviar Imagens Geradas
+        run: |
+          git add profile-assets/github-stats.svg
+          git add profile-assets/top-langs.svg
+          git commit -m "📊 Atualizar GitHub Stats e Top Languages [skip ci]" || echo "Não há alterações para comitar"
+          git push
