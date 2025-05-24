@@ -4,9 +4,9 @@
 - ✉️ E-mail pessoal: caio.felipe.projetos@gmail.com | Personal e-mail: caio.felipe.projetos@gmail.com
 ---
  <div align=center>
-  <a href="https://github.com/CaioFelipe-Code">
-  <img height="180cm" src="https://github-readme-stats.vercel.app/api?username=CaioFelipe-Code&show_icons=true&theme=dracula&include_all_commits=true&count_private=true"/>
-  <img height="180cm" src="https://github-readme-stats.vercel.app/api/top-langs/?username=CaioFelipe-Code&layout=compact&langs_count=16&theme=dracula"/>
+  <a href="https://github.com/CaioFelipe-Code">
+  <img height="180cm" src="https://github.com/CaioFelipe-Code/CaioFelipe-Code/blob/main/profile-assets/github-stats.svg" alt="GitHub Stats"/>
+  <img height="180cm" src="https://github.com/CaioFelipe-Code/CaioFelipe-Code/blob/main/profile-assets/top-langs.svg" alt="Most Used Languages"/>
 </div>
 
 ---
