@@ -1,4 +1,4 @@
-name: Atualizar GitHub Stats e Linguagens (via Metrics)
+name: Atualizar GitHub Stats e Linguagens
 
 on:
   # Roda a cada 6 horas (você pode ajustar esta frequência)
@@ -12,43 +12,54 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate_metrics:
+  update_stats:
     runs-on: ubuntu-latest
     permissions:
       contents: write # Permissão necessária para o workflow comitar arquivos no seu repositório
 
     steps:
-      # Faz o checkout do seu repositório
       - name: Checkout do Repositório
         uses: actions/checkout@v4
-
-      # Gera o card de estatísticas completo com lowlighter/metrics
-      - name: Gerar Card de Estatísticas Completo
-        uses: lowlighter/metrics@latest
         with:
-          token: ${{ secrets.PAT_GITHUB_TOKEN }} # <--- Seu token de acesso pessoal
-          filename: profile-assets/github-stats.svg # <--- Caminho onde a imagem será salva
-          
-          # Configurações para o card de estatísticas
-          user: CaioFelipe-Code # Seu nome de usuário do GitHub
-          template: classic # Estilo clássico do card
-          base: header, activity, community, repositories # Dados básicos a incluir
-          
-          # Removido: plugin_commits: yes (não é um parâmetro válido para metrics)
-          
-          # Plugins para incluir mais detalhes
-          plugin_isocalendar: yes # Calendário de contribuições
-          plugin_isocalendar_duration: full-year
-          plugin_achievements: yes # Conquistas
-          plugin_achievements_secrets: yes # Permite rastrear conquistas secretas (requer PAT)
-          plugin_languages: yes # Linguagens mais usadas
-          plugin_languages_colors: github # Cores das linguagens
-          plugin_languages_ignored: html, css, jupyter notebook, markdown # Linguagens para ignorar
-          plugin_languages_limit: 8 # Limite de linguagens a exibir
-          plugin_languages_threshold: 0% # Mostrar todas acima de 0% de uso
-          plugin_topics: yes # Tópicos dos repositórios
-          plugin_topics_limit: 5 # Limite de tópicos a exibir
-          # Para mais opções e plugins, veja a documentação de lowlighter/metrics
+          token: ${{ secrets.PAT_GITHUB_TOKEN }} # Usando o PAT para garantir permissão de push
 
-      # REMOVIDOS OS PASSOS DE 'git config', 'git add', 'git commit' e 'git push'
-      # Pois lowlighter/metrics já faz isso automaticamente!
+      - name: Criar pasta profile-assets (se não existir)
+        run: mkdir -p profile-assets
+
+      - name: Gerar Card de Estatísticas
+        uses: anuraghazra/github-readme-stats@v3 # Usando v3 novamente
+        with:
+          token: ${{ secrets.PAT_GITHUB_TOKEN }}
+          username: CaioFelipe-Code
+          hide_title: true
+          hide_border: true
+          show_icons: true
+          include_all_commits: true
+          count_private: true
+          output: profile-assets/github-stats.svg # Salva na pasta correta
+
+      - name: Gerar Card de Linguagens Mais Usadas
+        uses: anuraghazra/github-readme-stats@v3 # Usando v3 novamente
+        with:
+          token: ${{ secrets.PAT_GITHUB_TOKEN }}
+          username: CaioFelipe-Code
+          layout: compact
+          hide_title: true
+          hide_border: true
+          card_width: 320
+          langs_count: 5
+          output: profile-assets/top-langs.svg # Salva na pasta correta
+
+      # Configurar as informações do committer para o Git
+      - name: Configurar Informações do Committer
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Comitar e Enviar Imagens Geradas
+      - name: Comitar e Enviar Imagens Geradas
+        run: |
+          # Adiciona os dois arquivos SVG
+          git add profile-assets/github-stats.svg profile-assets/top-langs.svg
+          git commit -m "📊 Atualizar GitHub Stats e Linguagens [skip ci]" || echo "Não há alterações para comitar"
+          git push
