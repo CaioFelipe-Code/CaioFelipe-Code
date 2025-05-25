@@ -4,12 +4,12 @@
 - ✉️ E-mail pessoal: caio.felipe.projetos@gmail.com | Personal e-mail: caio.felipe.projetos@gmail.com
 ---
 <div align=center>
-  <a href="https://github.com/CaioFelipe-Code">
-    <img height="180cm" src="https://raw.githubusercontent.com/CaioFelipe-Code/CaioFelipe-Code/main/profile-assets/github-stats.svg" alt="GitHub Stats"/>
-  </a>
-  <a href="https://github.com/CaioFelipe-Code">
-    <img height="180cm" src="https://raw.githubusercontent.com/CaioFelipe-Code/CaioFelipe-Code/main/profile-assets/top-langs.svg" alt="Top Languages"/>
-  </a>
+  <a href="https://github.com/CaioFelipe-Code">
+    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=CaioFelipe-Code&show_icons=true&include_all_commits=true&count_private=true&hide_title=true&hide_border=true&theme=dark" alt="GitHub Stats"/>
+  </a>
+  <a href="https://github.com/CaioFelipe-Code">
+    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=CaioFelipe-Code&layout=compact&hide_title=true&hide_border=true&langs_count=5&theme=dark" alt="Top Languages"/>
+  </a>
 </div>
 
 ---
